@@ -1,4 +1,8 @@
-# if /sys/firmware/efi/efivars directory
+#!/bin/bash
+echo "Not intended for execution!" 1>&2; exit 1;
+
+
+# if /sys/firmware/efi/efivars directory"
 # exists you are on UEFI system
 
 # Disk formatting and partitioning
