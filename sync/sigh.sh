@@ -11,48 +11,39 @@ echo_help() {
 	echo "  -h  display this help and exit"
 }
 
-backup_files() {
+sync_files() {
+	src_prefix=""
+	dst_prefix=""
+	case $mode in
+		backup) dst_prefix=".";;
+		restore) src_prefix=".";;
+	esac
 	for path in $@; do
 		path_exp=${path/#~/$HOME}
-		if [ -e $path_exp ]; then
-			if [ -z ${no_confirm+x } ]; then
-				read -p "Backup $path_exp? [Y/n]: " answer
-				case $answer in
-					[yY] | [yY][eE][sS] | "" ) ;;
-					[nN] | [nN][oO] | *)
-						echo Ignored.; continue
-				esac
-			fi
-			cp -r $path_exp $(basename $path)
-		fi
-	done
-}
-
-restore_files() {
-	for path in $@; do
-		path_exp=${path/#~/$HOME}
-		if [ -e $(basename $path_exp) ]; then
-			if [ ! -d $(dirname $path_exp) ]; then
+		src="$src_prefix$path_exp"
+		dst="$dst_prefix$path_exp"
+		if [ -e $src ]; then
+			if [ ! -d $(dirname $dst) ]; then
 				if [ -z ${no_confirm+x} ]; then
-					read -p "Make directory $(dirname $path_exp)? [Y/n]: " answer
+					read -p "Make directory $(dirname $dst)? [Y/n]: " answer
 					case $answer in
-						[yY] | [yY][eE][sS] | "") ;;
-						[nN] | [nN][oO] | *)
-							echo Ignored.; continue
+						[yY] | [yY][eE][sS] | "");;
+						[nN] | [nN][oO] | *) echo Ignored.; continue;;
 					esac
 				fi
-				mkdir -p $(dirname $path_exp)
+				mkdir -p $(dirname $dst)
 			fi
 
 			if [ -z ${no_confirm+x} ]; then
-				read -p "Restore $path_exp? [Y/n]: " answer
+				read -p "Restore $src? [Y/n]: " answer
 				case $answer in
-					[yY] | [yY][eE][sS] | "") ;;
-					[nN] | [nN][oO] | *)
-						echo Ignored.; continue
+					[yY] | [yY][eE][sS] | "");;
+					[nN] | [nN][oO] | *) echo Ignored.; continue;;
 				esac
 			fi
-			cp -r $(basename $path_exp) $path_exp
+			cp -r $src $dst
+		else
+			echo "Could not find $src."
 		fi
 	done
 }
@@ -96,7 +87,4 @@ if [ $# -eq 0 ]; then
 	exit 2
 fi
 
-case $mode in
-	backup)		backup_files $@;;
-	restore) 	restore_files $@;;
-esac
+sync_files $@

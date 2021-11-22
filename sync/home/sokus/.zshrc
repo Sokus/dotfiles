@@ -17,7 +17,7 @@ bindkey '\e[3;3~' delete-word
 
 # Added by Sokus
 alias tree="tree -C"
-alias ls="ls --color=auto"
+alias ls="ls --color=auto --group-directories-first"
 alias clipboard="xclip -selection c"
 
 # function 4coder() { (nohup /usr/sokus_bin/4coder/4ed "$@" &) 1>/dev/null 2>&1 }
@@ -39,8 +39,6 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-if [[ -o interactive ]]
-then
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+if [ -d $HOME/git/themes/zsh ]; then
+	source $HOME/git/themes/zsh/dracula.zsh-theme
 fi
