@@ -1,5 +1,12 @@
 # check: if /sys/firmware/efi/efivars exists"
 
+- [Clean installation](arch_guide.md#clean-installation)
+  - [Initial setup](#initial-setup)
+    - [GRUB](#grub)
+      - [Networking](#networking)
+        - [Wired](arch_guide.md#wired)
+        - [Wireless](#wireless)
+  
 ## Clean installation
 ### Initial setup
 Disk formatting and partitioning
@@ -8,9 +15,9 @@ fdisk -l
 fdisk /dev/sdX
 ```
 
-`d` - delete existing partitions
-`n` - create partition (+512M)
-`t` - type: EFI System/EFI (Fat-12/16..)
+`d` - delete existing partitions  
+`n` - create partition (+512M)  
+`t` - type: EFI System/EFI (Fat-12/16..)  
 `n` - create (remaining disk size)
 
 ```sh
@@ -29,7 +36,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 passwd
 ```
-GRUB
+### GRUB
 ```sh
 pacman -S grub efibootmgr
 mkdir /boot/efi
@@ -37,19 +44,18 @@ mount /dev/sdX1 /boot/efi
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
-
 ```sh
 timedatectl set-timezone Europe/Warsaw
+```
+```sh
 echo [hostname] > /etc/hostname
 touch /etc/hosts
 ```
-
+Add to `/etc/hosts`:
 ```sh
-#/etc/hosts
-
-127.0.0.1	localhost
-::1			localhost
-127.0.1.1	[hostname]
+127.0.0.1    localhost
+::1          localhost
+127.0.1.1    [hostname]
 ```
 
 ### Networking
@@ -57,19 +63,16 @@ touch /etc/hosts
 pacman -S dhcpcd
 systemctl enable dhcpcd
 ```
-Wired:
+#### Wired
+Add to `/etc/dhcpcd.conf`:
 ```sh
-#/etc/dhcpcd.conf
-
 interface enp3s0
 static ip_address=192.168.x.x/24
 static routers=192.168.1.1
 static domain_name_servers=8.8.8.8
 ```
-Wireless:
-```sh
-#TODO
-```
+#### Wireless
+TODO
 
 ### Common
 ```sh
@@ -99,12 +102,12 @@ pacman -S alsa-lib alsa-plugins pipewire pipewire-alsa pipewire-pulse pavucontro
 pacman -S ttf-dejavu ttf-inconsolata ttf-freefont ttf-libration ttf-droid ttf-roboto ttf-font-awesome noto-fonts
 ```
 Also install:
-`picom`     - compositor
-`dmenu`     - application launcher
-`alacritty` - terminal emulator
-`ranger`    - CLI file explorer
-`xlip`      - clipboard
-`maim`      - screenshots
+`picom`     - compositor  
+`dmenu`     - application launcher  
+`alacritty` - terminal emulator  
+`ranger`    - CLI file explorer  
+`xlip`      - clipboard  
+`maim`      - screenshots  
 
 ```sh
 #~/.xinitrc
