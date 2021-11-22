@@ -4,21 +4,25 @@
   - [Initial setup](#initial-setup)
     - [Disk formatting and partitioning](#disk-formatting-and-partitioning)
     - [GRUB](#grub)
-      - [Networking](#networking)
-        - [Wired](a#wired)
-        - [Wireless](#wireless)
+    - [Networking](#networking)
+      - [Wired](#wired)
+      - [Wireless](#wireless)
     - [Common](#common)
-  - [Graphic Environment](#graphic-environment)
-  
+- [Graphic Environment](#graphic-environment)
+  - [Apps](#apps)
+  - [Configuration](#configuration)
+    - [Themes](#themes)
+  - [Other](#other)
+    
 # Clean installation
 ## Initial setup
 ### Disk formatting and partitioning
-fdisk operations:
-`l` - list devices
+fdisk operations:  
+`l` - list devices  
 `d` - delete existing partitions  
 `n` - create partition (+512M)  
 `t` - type: EFI System/EFI (Fat-12/16..)  
-`n` - create (remaining disk size)
+`n` - create (remaining disk size)  
 (NOTE: you are on UEFI if `/sys/firmware/efi/efivars` exists)
 ```sh
 fdisk /dev/sdX
@@ -45,10 +49,8 @@ mount /dev/sdX1 /boot/efi
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
-```sh
-```
 
-### Networking
+## Networking
 ```sh
 echo [hostname] > /etc/hostname
 touch /etc/hosts
@@ -74,11 +76,11 @@ static domain_name_servers=8.8.8.8
 #### Wireless
 TODO
 
-### Common
+## Common
 ```sh
 pacman -S base-devel git
 ```
-Add user
+Add a user:
 ```sh
 pacman -S sudo
 useradd -m -G wheel -s /usr/bin/zsh [username]
@@ -86,7 +88,7 @@ passwd [username]
 visudo
 # uncomment %wheel ALL=(ALL) ALL
 ```
-Install Paru
+Install Paru:
 ```sh
 git clone https://aur.archlinux.org/paru.git
 cd paru
@@ -106,14 +108,26 @@ export LANG=en_US.UTF-8
 localectl set-keymap us
 ```
 
-### Graphic environment
+## Graphic environment
 ```sh
 pacman -S i3 xorg xorg-xinit
 pacman -S nvidia nvidia-utils nvidia-settings
 pacman -S alsa-lib alsa-plugins pipewire pipewire-alsa pipewire-pulse pavucontrol
 pacman -S ttf-dejavu ttf-inconsolata ttf-freefont ttf-libration ttf-droid ttf-roboto ttf-font-awesome noto-fonts
 ```
-Also install:
+Add to `~/.xinitrc`:
+```sh
+#!/bin/bash
+exec i3
+```
+Add to `/etc/profile`
+```sh
+if [[ "$(tty)" == '/dev/tty1' ]]; then
+	exec startx
+fi
+```
+
+### Apps:  
 `picom`     - compositor  
 `dmenu`     - application launcher  
 `alacritty` - terminal emulator  
@@ -121,22 +135,22 @@ Also install:
 `xlip`      - clipboard  
 `maim`      - screenshots  
 
+### Configuration
+#### Themes
 ```sh
-#~/.xinitrc
-
-#!/bin/bash
-exec i3
+mkdir -p ~/git/themes & cd ~/git/themes
 ```
-
+Clone from `gh:dracula`: `alacritty` `ranger` `vim` `xresources` `zsh`  
+Additional setup:
 ```sh
-#/etc/profile
-if [[ "$(tty)" == '/dev/tty1' ]]; then
-	exec startx
-fi
+ln -s -T ~/git/themes/ranger/dracula.py ~/.config/ranger/colorschemes/dracula.py
+ln -S -T ~/git/themes/xresources/Xresources ~/.Xresources
 ```
+#### Sync 'dot' files
 
-Change keyboard layout:
 
+### Other
+Change X11 keyboard layout:
 ```sh
 #~/.xinitrc
 setxkbmap -layout pl
