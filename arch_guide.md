@@ -1,26 +1,27 @@
-# check: if /sys/firmware/efi/efivars exists"
+# Arch + i3-gaps
 
-- [Clean installation](arch_guide.md#clean-installation)
+- [Clean installation](#clean-installation)
   - [Initial setup](#initial-setup)
+    - [Disk formatting and partitioning](#disk-formatting-and-partitioning)
     - [GRUB](#grub)
       - [Networking](#networking)
-        - [Wired](arch_guide.md#wired)
+        - [Wired](a#wired)
         - [Wireless](#wireless)
+    - [Common](#common)
+  - [Graphic Environment](#graphic-environment)
   
-## Clean installation
-### Initial setup
-Disk formatting and partitioning
-```sh
-fdisk -l
-fdisk /dev/sdX
-```
-
+# Clean installation
+## Initial setup
+### Disk formatting and partitioning
+fdisk operations:
+`l` - list devices
 `d` - delete existing partitions  
 `n` - create partition (+512M)  
 `t` - type: EFI System/EFI (Fat-12/16..)  
 `n` - create (remaining disk size)
-
+(NOTE: you are on UEFI if `/sys/firmware/efi/efivars` exists)
 ```sh
+fdisk /dev/sdX
 mkfs.ext4 /dev/sdX2
 mkfs.fat -F 32 /dev/sdX1
 mount /dev/sdX2 /mnt
@@ -45,8 +46,9 @@ grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 ```sh
-timedatectl set-timezone Europe/Warsaw
 ```
+
+### Networking
 ```sh
 echo [hostname] > /etc/hostname
 touch /etc/hosts
@@ -57,8 +59,6 @@ Add to `/etc/hosts`:
 ::1          localhost
 127.0.1.1    [hostname]
 ```
-
-### Networking
 ```sh
 pacman -S dhcpcd
 systemctl enable dhcpcd
@@ -93,8 +93,20 @@ cd paru
 makepkg -sir
 cd .. & rm -r paru
 ```
+Timezone:
+```sh
+timedatectl set-timezone Europe/Warsaw
+```
+Locale:  
+Uncomment `en_US.UTF-8` in `/etc/locale.gen`.
+```sh
+locale-gen
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+export LANG=en_US.UTF-8
+localectl set-keymap us
+```
 
-## Graphic environment
+### Graphic environment
 ```sh
 pacman -S i3 xorg xorg-xinit
 pacman -S nvidia nvidia-utils nvidia-settings
@@ -124,18 +136,6 @@ fi
 ```
 
 Change keyboard layout:
-```sh
-#/etc/locale.gen
-
-#uncomment en_US.UTF-8
-```
-Generate locales
-```sh
-locale-gen
-echo LANG=en_US.UTF-8 > /etc/locale.conf
-export LANG=en_US.UTF-8
-localectl set-keymap us
-```
 
 ```sh
 #~/.xinitrc
