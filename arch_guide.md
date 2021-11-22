@@ -12,6 +12,7 @@
   - [Apps](#apps)
   - [Configuration](#configuration)
     - [Themes](#themes)
+    - [Synchronize config files](#synchronize-config-files)
   - [Other](#other)
     
 # Clean installation
@@ -146,12 +147,10 @@ Additional setup:
 ln -s -T ~/git/themes/ranger/dracula.py ~/.config/ranger/colorschemes/dracula.py
 ln -S -T ~/git/themes/xresources/Xresources ~/.Xresources
 ```
-#### Sync 'dot' files
+Add `RANGER_LOAD_DEFAULT_RC=FALSE` to `~/.xinitrc`.
+#### Synchronize config files
 
 
 ### Other
-Change X11 keyboard layout:
-```sh
-#~/.xinitrc
-setxkbmap -layout pl
-```
+Change X11 keyboard layout:  
+Add `setxkbmap -layout pl` to `~/.xinitrc`
