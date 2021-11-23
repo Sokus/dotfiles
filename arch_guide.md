@@ -154,3 +154,18 @@ Add `RANGER_LOAD_DEFAULT_RC=FALSE` to `~/.xinitrc`.
 ### Other
 Change X11 keyboard layout:  
 Add `setxkbmap -layout pl` to `~/.xinitrc`
+
+Xbox Gamepad: `xboxdrv`
+
+Set default desktop apps (for example opening links):  
+Install `xdg-utils`   
+List applications in `/usr/share/applications` or `~/.local/share/applications`   
+Set default browser:  
+```sh
+xdg-settings set default-web-browser brave-browser.desktop
+```
+Set default for opening links:
+```sh
+xgd-settings set default-url-scheme-handler http brave-browser.desktop
+xdg-settings set default-url-scheme-handler https brave-browser.desktop
+```
