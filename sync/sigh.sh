@@ -12,11 +12,16 @@ echo_help() {
 }
 
 sync_files() {
+	question_prefix=""
 	src_prefix=""
 	dst_prefix=""
 	case $mode in
-		backup) dst_prefix=".";;
-		restore) src_prefix=".";;
+		backup)
+			dst_prefix="."
+			question_prefix="Backup";;
+		restore)
+			src_prefix="."
+			question_prefix="Restore";;
 	esac
 	for path in $@; do
 		path_exp=${path/#~/$HOME}
@@ -35,7 +40,7 @@ sync_files() {
 			fi
 
 			if [ -z ${no_confirm+x} ]; then
-				read -p "Restore $src? [Y/n]: " answer
+				read -p "$question_prefix $src? [Y/n]: " answer
 				case $answer in
 					[yY] | [yY][eE][sS] | "");;
 					[nN] | [nN][oO] | *) echo Ignored.; continue;;
