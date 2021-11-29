@@ -19,8 +19,9 @@ bindkey '\e[3;3~' delete-word
 alias tree="tree -C"
 alias ls="ls --color=auto --group-directories-first"
 alias clipboard="xclip -selection c"
+alias bat="bat -p"
 
-# function 4coder() { (nohup /usr/sokus_bin/4coder/4ed "$@" &) 1>/dev/null 2>&1 }
+function 4coder() { (nohup /usr/sokus-bin/4coder/4ed "$@" &) 1>/dev/null 2>&1 }
 function gf() { (nohup /usr/sokus-bin/gf/gf2 "$@" &) 1>/dev/null 2>&1 }
 
 PS1_NM="%(!.%F{red}.%F{green})%n@%m%f"

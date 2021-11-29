@@ -4,8 +4,10 @@ set hlsearch
 set ignorecase
 set incsearch
 set tabstop=4
-set autoindent
+set softtabstop=4
 set shiftwidth=4
+set expandtab
+set autoindent
 
 packadd! dracula
 syntax enable

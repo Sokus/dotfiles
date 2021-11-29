@@ -3,4 +3,5 @@
 ~/.config/i3/config
 ~/.config/i3status/config
 ~/.config/alacritty/alacritty.yml
+~/.config/picom/picom.conf
 ~/.config/ranger/rc.conf
