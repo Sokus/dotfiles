@@ -18,15 +18,20 @@
 # Clean installation
 ## Initial setup
 ### Disk formatting and partitioning
-fdisk operations:  
-`l` - list devices  
-`d` - delete existing partitions  
-`n` - create partition (+512M)  
-`t` - type: EFI System/EFI (Fat-12/16..)  
-`n` - create (remaining disk size)  
+
+Divide disk space, at least +512MB for uefi partition (EFI system/ FAT-12/16) and the remaining for filesystem (ext4, Linux filesystem)
 (NOTE: you are on UEFI if `/sys/firmware/efi/efivars` exists)
 ```sh
 fdisk /dev/sdX
+```
+fdisk operations:  
+`l` - list devices  
+`d` - delete existing partitions  
+`n` - create partition
+`t` - type
+`n` - create (remaining disk size)  
+
+```sh
 mkfs.ext4 /dev/sdX2
 mkfs.fat -F 32 /dev/sdX1
 mount /dev/sdX2 /mnt
@@ -110,31 +115,23 @@ localectl set-keymap us
 ```
 
 ## Graphic environment
-```sh
-pacman -S i3 xorg xorg-xinit
+```shs
+pacman -S i3
+pacman -S lightdm lightdm-gtk-greeter
 pacman -S nvidia nvidia-utils nvidia-settings
-pacman -S alsa-lib alsa-plugins pipewire pipewire-alsa pipewire-pulse pavucontrol
+pacman -S alsa-lib alsa-plugins pipewire pipewire-alsa pipewire-pulse pavucontrol wireplumber
 pacman -S ttf-dejavu ttf-inconsolata ttf-freefont ttf-libration ttf-droid ttf-roboto ttf-font-awesome noto-fonts
 ```
-Add to `~/.xinitrc`:
-```sh
-#!/bin/bash
-exec i3
-```
-Add to `/etc/profile`
-```sh
-if [[ "$(tty)" == '/dev/tty1' ]]; then
-	exec startx
-fi
-```
 
-### Apps:  
-`picom`     - compositor  
-`dmenu`     - application launcher  
-`alacritty` - terminal emulator  
-`ranger`    - CLI file explorer  
-`xlip`      - clipboard  
-`maim`      - screenshots  
+
+### Apps:
+`sakura`   - terminal emulator
+`picom`    - compositor  
+`dmenu`    - application launcher
+`xclip`    - clipboard
+`maim`     - screenshots
+`thunar`   - file manager
+`feh`      - backgrounds
 
 ### Configuration
 #### Themes
@@ -153,7 +150,9 @@ Add `RANGER_LOAD_DEFAULT_RC=FALSE` to `~/.xinitrc`.
 
 ### Other
 Change X11 keyboard layout:  
-Add `setxkbmap -layout pl` to `~/.xinitrc`
+```sh
+localectl --no-convert set-x11-keymap pl
+```
 
 Xbox Gamepad: `xboxdrv`
 
