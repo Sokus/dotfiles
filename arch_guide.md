@@ -11,6 +11,7 @@
 - [Graphic Environment](#graphic-environment)
   - [Apps](#apps)
   - [Configuration](#configuration)
+    - [Thunar](#thunar)
     - [Themes](#themes)
     - [Synchronize config files](#synchronize-config-files)
   - [Other](#other)
@@ -123,15 +124,14 @@ pacman -S alsa-lib alsa-plugins pipewire pipewire-alsa pipewire-pulse pavucontro
 pacman -S ttf-dejavu ttf-inconsolata ttf-freefont ttf-libration ttf-droid ttf-roboto ttf-font-awesome noto-fonts
 ```
 
-
 ### Apps:
-terminal emulator:    `sakura`   - terminal emulator  
-compositor:           `picom`    - compositor    
-application launcher: `dmenu`    - application launcher  
-clipboard:            `xclip`    - clipboard  
-screenshots:          `maim`     - screenshots  
-file manager:         [Thunar](#thunar)
-backgrounds:          `feh`      - backgrounds  
+`sakura` - terminal emulator  
+`picom` - compositor    
+`dmenu` - application launcher  
+`xclip` - clipboard  
+`maim` - screenshots  
+[Thunar](#thunar) - file manager
+`feh`      - backgrounds  
 
 ### Configuration
 #### Thunar
