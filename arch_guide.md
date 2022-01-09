@@ -139,15 +139,25 @@ Go to Edit->Configure Custom Actions... and set Open Terminal Here command to th
 
 #### Themes
 ```sh
+pacman -S lxappearance-gtk3
+```
+Download dracula GTK theme and extract it to following locations. Also download Dracula-cursor theme (not on the offical site).
+```sh
+mkdir -p ~/.themes
+mkdir -p ~/.icons
+```
+
+```sh
 mkdir -p ~/git/themes & cd ~/git/themes
 ```
-Clone from `gh:dracula`: `alacritty` `ranger` `vim` `xresources` `zsh`  
+Clone from `gh:dracula`:`vim`,`zsh`  
 Additional setup:
-```sh
-ln -s -T ~/git/themes/ranger/dracula.py ~/.config/ranger/colorschemes/dracula.py
-ln -S -T ~/git/themes/xresources/Xresources ~/.Xresources
+```s
+# vim
+mkdir -p ~/.vim/pack/themes/start
+cd ~/.vim/pack/themes/start
+ln -s ~/git/themes/vim dracula
 ```
-Add `RANGER_LOAD_DEFAULT_RC=FALSE` to `~/.xinitrc`.
 #### Synchronize config files
 
 
