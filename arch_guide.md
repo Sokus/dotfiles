@@ -27,8 +27,8 @@ fdisk /dev/sdX
 fdisk operations:  
 `l` - list devices  
 `d` - delete existing partitions  
-`n` - create partition
-`t` - type
+`n` - create partition  
+`t` - type  
 `n` - create (remaining disk size)  
 
 ```sh
@@ -125,15 +125,18 @@ pacman -S ttf-dejavu ttf-inconsolata ttf-freefont ttf-libration ttf-droid ttf-ro
 
 
 ### Apps:
-`sakura`   - terminal emulator
-`picom`    - compositor  
-`dmenu`    - application launcher
-`xclip`    - clipboard
-`maim`     - screenshots
-`thunar`   - file manager
-`feh`      - backgrounds
+terminal emulator:    `sakura`   - terminal emulator  
+compositor:           `picom`    - compositor    
+application launcher: `dmenu`    - application launcher  
+clipboard:            `xclip`    - clipboard  
+screenshots:          `maim`     - screenshots  
+file manager:         [Thunar](#thunar)
+backgrounds:          `feh`      - backgrounds  
 
 ### Configuration
+#### Thunar
+Go to Edit->Configure Custom Actions... and set Open Terminal Here command to the terminal of choice.
+
 #### Themes
 ```sh
 mkdir -p ~/git/themes & cd ~/git/themes
