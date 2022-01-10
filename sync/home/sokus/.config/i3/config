@@ -20,14 +20,6 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 floating_modifier $mod
 
-bindsym $mod+Return exec alacritty 
-
-bindsym $mod+Shift+q kill
-
-# program launcher
-# bindsym $mod+d exec --no-startup-id dmenu_run
-# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -135,13 +127,14 @@ bar {
 	status_command i3status
 }
 
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-#bindsym $mod+d exec "i3-dmenu-desktop -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
-exec_always picom --backend=glx
-exec_always --no-startup-id feh --bg-scale ~/images/wallpapers/wallpaper.png
+exec_always picom --backend glx
+exec_always --no-startup-id feh --bg-scale /usr/share/backgrounds-sokus/background.png 
 
 # Bindings
 bindsym $mod+Shift+s exec maim -s | xclip -selection clipboard -t image/png
+bindsym $mod+d exec "rofi -modi drun,run -show drun"
+bindsym $mod+Return exec alacritty
+bindsym $mod+Shift+q kill
 
 # Settings
 focus_follows_mouse no
@@ -152,5 +145,5 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
 for_window [class=".*"] border pixel 2
-gaps inner 10
-gaps outer 0
+# gaps inner 10
+# gaps outer 0

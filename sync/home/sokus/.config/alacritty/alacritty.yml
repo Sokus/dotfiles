@@ -1,3 +1,2 @@
-background_opacity: 0.82
 import:
-- ~/git/themes/alacritty/dracula.yml
+- ~/Git/themes/alacritty/dracula.yml

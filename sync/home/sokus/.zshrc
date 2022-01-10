@@ -30,7 +30,7 @@ PS1="$PS1_NM $PS1_W "
 
 # The following lines were added by compinstall
 
-zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*' chhhompleter _complete _ignored _approximate
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
@@ -40,6 +40,6 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-if [ -d $HOME/git/themes/zsh ]; then
-	source $HOME/git/themes/zsh/dracula.zsh-theme
+if [ -d $HOME/Git/themes/zsh ]; then
+	source $HOME/Git/themes/zsh/dracula.zsh-theme
 fi
