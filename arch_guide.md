@@ -131,7 +131,10 @@ pacman -S ttf-dejavu ttf-inconsolata ttf-freefont ttf-libration ttf-droid ttf-ro
 `xclip` - clipboard  
 `maim` - screenshots  
 [Thunar](#thunar) - file manager
-`feh`      - backgrounds  
+`feh` - backgrounds  
+`gnome-keyring` - storing passwords  
+`seahorse` - managing passwords
+`dunst` - notifications
 
 ### Configuration
 #### Thunar
